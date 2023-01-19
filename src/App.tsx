@@ -1,15 +1,16 @@
-// import React from 'react';
-import { Timer } from './components/Timer';
 
+import { Input } from './components/input';
+import React from 'react';
 
 function App() {
-  return (
-    <div className="App">
-      <Timer timeZoneIndex={15}></Timer>
-      <Timer timeZoneIndex={25}></Timer>
-      <Timer timeZoneIndex={155}></Timer>
-    </div>
-  );
+  function processInput(value:string):string {
+    let res: string = '';
+    if(value.toLowerCase().includes("hello")){
+      res = "get tired from HELLO. it's forbidden word";
+    }
+    return res;
+  }
+  return <Input inputId={'input-1'} inputProcess={ processInput } />
 }
 
 export default App;

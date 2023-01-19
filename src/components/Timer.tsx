@@ -2,21 +2,25 @@ import React from "react";
 import { isPropertySignature } from "typescript";
 import timeZones from "../time-zones";
 type TimerProps = {
-    timeZoneIndex: number;
+    cityOrCountry:string;
 }
 export const Timer: React.FC<TimerProps> = (props) =>{
-    const timeZone = timeZones[props.timeZoneIndex].name;
-    const[time, setTime] = React.useState<Date>(new Date()); 
-    function tick(){
-         console.log("Tik-Tak");
-         setTime(new Date());
+    const timeZoneIndex:number = timeZones.findIndex(tz => JSON.stringify(tz).
+    includes(props.cityOrCountry))
+    const timeZone: string = timeZones[timeZoneIndex]?.name;
+    const timeZoneName: string = timeZone ? props.cityOrCountry : "Israel"
+    const [time, setTime] = React.useState(new Date());
+    function tick() {
+        console.log("Tick-Tak");
+        setTime(new Date());
     }
-    React.useEffect(()=> {
+    React.useEffect(()=>{
         const interval = setInterval(tick, 1000);
         return ()=>clearInterval(interval);
-    }, [])
+    },[])
     return <div>
-        <h3>Time in time zone {timeZone} </h3>
-        <label style={{display:"block", textAlign:"center", fontSize:"2em"}}> Time {time.toLocaleTimeString(undefined,{timeZone})}</label>
+        <h3 className='logo'>Time in {timeZoneName} </h3>
+        <label style={{display:"block", textAlign:"center",fontSize:"2em"}}>
+            {time.toLocaleDateString(undefined,{timeZone})} </label>
     </div>
 } 

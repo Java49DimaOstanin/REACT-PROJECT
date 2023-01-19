@@ -8,7 +8,7 @@ type InputProps = {
 export const Input: React.FC<InputProps> = ({inputId,inputProcess})=> {
     let inputElement:HTMLInputElement | null ;
     const [message , setMessage] = React.useState('');
-    // let messege:string ='';
+    
     function processGo():void{ 
        setMessage('');
      const messageRet: string = inputProcess(inputElement!.value);

@@ -20,7 +20,6 @@ export const Timer: React.FC<TimerProps> = (props) =>{
     },[])
     return <div>
         <h3 className='logo'>Time in {timeZoneName} </h3>
-        <label style={{display:"block", textAlign:"center",fontSize:"2em"}}>
-            {time.toLocaleDateString(undefined,{timeZone})} </label>
+        <label style={{display:"block", textAlign:"center",fontSize:"2em"}}> {time.toLocaleTimeString(undefined,{timeZone})} </label>
     </div>
 } 

@@ -10,13 +10,6 @@ export const Alert: React.FC<AlertProps> = ({type,messege}) =>{
         case "info" : backGround = "green";break;
         case "warning" : backGround = "yellow";
     }
-    //    if(type == "error") {
-    //     backGround = "red"
-
-    //    }else if(type == "info"){
-    //     backGround = "green";
-    //    }else {
-    //     backGround = "yellow";
-    //    }
+  
        return <p style={{backgroundColor: backGround}}>{messege}</p>
 }

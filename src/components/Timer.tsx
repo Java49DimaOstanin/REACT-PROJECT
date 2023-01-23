@@ -33,12 +33,14 @@ export const Timer: React.FC<TimerProps> = (props) => {
         }
         return res;
     }
-
+    const properties: React.CSSProperties = {
+        display: "block",
+        textAlign: "center",
+        fontSize: "2em"
+      }
     return <div>
-        <Input placeHolder={"Enter city or country"} inputProcess={processCityCountry}/>
-        <h3 className='logo'>Time in {timeZoneName}</h3>
-        <label style={{display: "block",
-         textAlign: "center", fontSize: "2em"}}>
-            {time.toLocaleTimeString(undefined,{timeZone})}</label>
+        {/* <Input placeHolder={"Enter city or country"} inputProcess={processCityCountry}/> */}
+        <h3 className='logo' style={properties} >Time in {timeZoneName}</h3>
+        <label style={properties}> {time.toLocaleTimeString(undefined,{timeZone})}</label>
     </div>
 }

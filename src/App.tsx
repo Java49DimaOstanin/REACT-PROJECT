@@ -1,6 +1,7 @@
 
 import { Input } from './components/input';
 import React from 'react';
+import { Timer } from './components/Timer';
 
 
 
@@ -10,21 +11,42 @@ function App() {
     display: "flex",
     flexWrap: "wrap"
   }
-  const [colors,setcolors] = React.useState<string[]>([])
-function creatingDivs(value:string): string {
-    const colors: string[] = value.split("#") ;// red#green => ['red,'green']
-    setcolors(colors.slice());
-    return '';
-}
-function getDivs(colors: string[]): JSX.Element[]{
-  return colors.map(color => <div style={{width:"5vw" , height:"5vh",
-backgroundColor:color}}></div>)
-}
+  const properties1: React.CSSProperties = {
+   backgroundColor: "azure" ,marginLeft:"2vw" ,width: "45%" , marginBottom:"2vh",
+  marginTop:"2vh", border:'2px solid black',borderRadius:  25
+  }
+  const properties2: React.CSSProperties = {
+    display: "block",
+    textAlign: "center",
+    backgroundColor: "red" ,marginLeft:"2vw" ,width: "90%" ,height:"6vw", marginBottom:"2vh",
+   marginTop:"2vh", border:'2px solid black',borderRadius: 25,fontSize:"3em"
+   }
 
-return <section style={{display: "flex",flexDirection:"column",}}>
-   <Input placeHolder={'enter color separated by #'} inputProcess={creatingDivs}> </Input>
+
+  const [cities, setCities] = React.useState<string[]>([])
+  function creatingCities(value: string): string {
+    const cities: string[] = value.split("#");// red#green => ['red,'green']
+    setCities(cities.slice());
+    return '';
+  }
+  function getCities(cities: string[]): JSX.Element[] {
+  
+    return cities.length%2 == 0? 
+       cities.map(city =>
+      <div style={properties1}>
+        <Timer cityOrCountry={city}></Timer>
+      </div>) :
+      cities.splice(0,cities.length, "Wrong quantity of Cities/Countries must be even").map(e =>
+        <div style={properties2}>
+          {e}
+        </div>)
+
+  }
+
+  return <section style={{ display: "flex", flexDirection: "column", }}>
+    <Input placeHolder={'enter city or country separated by #'} inputProcess={creatingCities} />
     <section style={properties}>
-   {getDivs(colors)}
+      {getCities(cities)}
     </section>
 
   </section>

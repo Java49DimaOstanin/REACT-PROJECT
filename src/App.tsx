@@ -15,31 +15,25 @@ function App() {
    backgroundColor: "azure" ,marginLeft:"2vw" ,width: "45%" , marginBottom:"2vh",
   marginTop:"2vh", border:'2px solid black',borderRadius:  25
   }
-  const properties2: React.CSSProperties = {
-    display: "block",
-    textAlign: "center",
-    backgroundColor: "red" ,marginLeft:"2vw" ,width: "90%" ,height:"6vw", marginBottom:"2vh",
-   marginTop:"2vh", border:'2px solid black',borderRadius: 25,fontSize:"3em"
-   }
-
+ 
 
   const [cities, setCities] = React.useState<string[]>([])
   function creatingCities(value: string): string {
+    let res:string = '';
     const cities: string[] = value.split("#");// red#green => ['red,'green']
-    setCities(cities.slice());
-    return '';
+    if(cities.length%2 !=0){
+      res =  "Wrong quantity of Cities/Countries must be even";
+    }else{
+      setCities(cities.slice());
+    }
+    return res;
   }
   function getCities(cities: string[]): JSX.Element[] {
   
-    return cities.length%2 == 0? 
-       cities.map(city =>
+    return  cities.map(city =>
       <div style={properties1}>
         <Timer cityOrCountry={city}></Timer>
-      </div>) :
-      cities.splice(0,cities.length, "Wrong quantity of Cities/Countries must be even").map(e =>
-        <div style={properties2}>
-          {e}
-        </div>)
+      </div>) 
 
   }
 

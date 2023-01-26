@@ -1,4 +1,4 @@
-import React, { useEffect } from "react"
+import React, { useEffect ,useState , useRef } from "react"
 import { Alert } from "./Alert"
 type InputProps = {
     placeHolder: string;
@@ -6,8 +6,8 @@ type InputProps = {
 }
 export const Input: React.FC<InputProps> = ({placeHolder, inputProcess}) => {
     let inputElement: HTMLInputElement | null
-   const [inputId] = React.useState(Math.round(Math.random() * 100000000) + '');
-    const [message, setMessage] = React.useState('')
+   const [inputId] = useState(Math.round(Math.random() * 100000000) + '');
+    const [message, setMessage] = useState('')
     function processGo(): void {
        setMessage('')
         const messageRet: string = inputProcess(inputElement!.value);
@@ -26,11 +26,11 @@ export const Input: React.FC<InputProps> = ({placeHolder, inputProcess}) => {
     })
     const properties1: React.CSSProperties = { display: "block",
     textAlign: "center",
-    fontSize: "2em",
+    fontSize: "1.5em",
         backgroundColor: "bisque" ,marginLeft:"2vw" ,width: "45%" , marginBottom:"2vh",
-       marginTop:"2vh", border:'2px solid black',borderRadius:  25, 
+       marginTop:"2vh",marginRight:"2vh" ,border:'2px solid black',borderRadius:  25
        }
-    return <div style={{ display: "flex", flexDirection: "row", }}>
+    return <div style={{ display: "flex", flexDirection: "column",justifyContent:"center",alignItems:"center" }}>
         <input id={inputId} placeholder={placeHolder} style={properties1}/>
         <button onClick={processGo} style={properties1}>GO</button>
         {message && <Alert type={"error"} messege={message}/>}

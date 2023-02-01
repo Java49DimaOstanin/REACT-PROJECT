@@ -29,7 +29,7 @@ export function getRandomArrayElement<T>(array:T[]):T{
     return array[getRandomNumber(0,array.length)];
 }
 export function getRandomDate(minYear:number,maxYear:number):Date{
-    const minDate:Date = new Date(minYear,0);
-    const maxDate:Date = new Date(maxYear,0);
-    return new Date(Math.random() * (maxDate.getTime() -  minDate.getTime()) + minDate.getTime());
+    const minDate:Date = new Date(minYear,0),maxDate:Date = new Date(maxYear,0);
+    const min:number = minDate.getTime(),max:number = maxDate.getTime();
+    return new Date(getRandomNumber(min,max));
 }

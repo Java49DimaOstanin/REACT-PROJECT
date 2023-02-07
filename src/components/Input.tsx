@@ -3,11 +3,11 @@ import { Alert } from "./Alert";
 type InputProps = {
     placeHolder: string;
     inputProcess: (value: string)=>string
+    inputWarning:any
 }
-export const Input: React.FC<InputProps> = ({placeHolder, inputProcess}) => {
+export const Input: React.FC<InputProps> = ({placeHolder, inputProcess ,inputWarning}) => {
     let inputElement: HTMLInputElement | null
-   const inputId =
-    React.useRef(Math.round(Math.random() * 100000000) + '');
+   const inputId =React.useRef(Math.round(Math.random() * 100000000) + '');
     const [message, setMessage] = React.useState('')
     function processGo(): void {
        setMessage('')
@@ -28,6 +28,6 @@ export const Input: React.FC<InputProps> = ({placeHolder, inputProcess}) => {
     return <div>
         <input id={inputId.current} placeholder={placeHolder}/>
         <button onClick={processGo}>GO</button>
-        {message && <Alert type={"error"} message={message}/>}
+        {message && <Alert type={inputWarning} message={message}/>}
     </div>
 }

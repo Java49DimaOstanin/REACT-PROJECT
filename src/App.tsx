@@ -17,6 +17,7 @@ function App() {
   return <div>
      <Input placeHolder={"Enter admin name"} inputProcess={function (value: string): string {
       setAdminCheck(false);
+      setAlert("warn");
       setAdminName(value);
       if (value.includes("admin")) {
         setAlert("info");

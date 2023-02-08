@@ -1,13 +1,21 @@
 import { authActions } from "../redux/authSlice";
 import {useDispatch} from 'react-redux';
 import React from "react";
+import { Input } from "./Input";
 
-type Props = {
-    adminName:string
-}
-export const Login:React.FC<Props> = ({adminName}) => {
+
+export const Login:React.FC = () => {
    const dispatch = useDispatch();
-    return <button onClick={() => dispatch(authActions.login(adminName))}> Login</button>
+  
+    return <div>
+        <p>Login</p>
+        <Input placeHolder={"Type user name for login"} inputProcess={function (value: string): string {
+        dispatch(authActions.login(value))
+          return '';
+        } } ></Input>
+       {/* <button onClick={() => dispatch(authActions.login(userName))}> Login</button> */}
+
+    </div> 
            
     
 }

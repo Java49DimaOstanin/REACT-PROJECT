@@ -8,7 +8,7 @@ const authSlice = createSlice ({
     reducers :{
          login: (state,data) => {
             if(!state.authenticated){
-                state.authenticated+= data.payload;
+                state.authenticated = data.payload;
             }
          },
          logOut: state => {
@@ -18,6 +18,5 @@ const authSlice = createSlice ({
          }
     }
 })
-
 export const authActions = authSlice.actions;
 export const authReducer = authSlice.reducer;

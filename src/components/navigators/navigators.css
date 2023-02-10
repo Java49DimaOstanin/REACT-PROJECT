@@ -1,0 +1,13 @@
+.navigator-list{
+    display:flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+    width: 80vw;
+    list-style: none;
+
+}
+@media(min-width:560){
+    .navigator-list {
+        flex-direction: row;
+    }
+}

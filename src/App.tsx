@@ -1,40 +1,29 @@
+
 import React, { useRef,useState,useEffect } from "react";
-import './App.css';
-import { CounterUpdater } from "./components/CounterUpdater";
-import { CounterSqure } from "./components/CounterSquare";
-import { CounterMultiply } from "./components/CounterMulti";
-import { Login } from "./components/Login";
-import { LogOut } from "./components/LogOut";
-import { useSelector} from 'react-redux';
-import { Input } from "./components/Input";
+import { BrowserRouter,Routes,Route } from "react-router-dom";
+import { Layout } from "./components/navigators/Layout";
+import { Products } from "./components/navigators/Products";
+import { BreadProducts } from "./components/pages/BreadProducts";
+import { Customers } from "./components/pages/Customers";
+import { DairyProducts } from "./components/pages/DairyProducts";
+import { Home } from "./components/pages/Home";
+import { Orders } from "./components/pages/Orders";
+
 function App() {
-  const auth:string = useSelector<any, string>( state =>  state.auth.authenticated);
-  const [operand ,setOperand] = React.useState(1);
-  const [factor , setFactor] = React.useState(10);
-  
-  return <div>
-     
-    {auth &&  <div>
-      <p>Username is {auth}</p>
-     {auth.includes("admin") && <Input placeHolder={"Enter Operand"} inputProcess={function (value: string): string {
-        setOperand(+value);
-        return "";
-      } }  ></Input>}
-      <Input placeHolder={"Enter factor"} inputProcess={function (value: string): string {
-        setFactor(+value);
-        return "";
-      } } ></Input>
-       </div>}
- {auth && <div >
-    <CounterUpdater operand={operand}></CounterUpdater>
-    <CounterSqure></CounterSqure>
-    <CounterMultiply factor={factor}></CounterMultiply>
-  </div>}
-  {auth && <LogOut></LogOut>}
-  {!auth &&   <Login ></Login>
-  
-   }
-  </div>
+
+  return <BrowserRouter>
+       <Routes>
+        <Route path="/" element={<Layout/>}>
+          <Route index element={<Home/>} ></Route>
+          <Route path="customers" element={<Customers/>}> </Route>
+          <Route path="orders" element={<Orders/>}></Route>
+          <Route path="products" element={<Products/>}>
+            <Route path="dairy" element={<DairyProducts/>}/>
+            <Route path="bread" element={<BreadProducts/>}/>
+          </Route>
+        </Route>
+       </Routes>
+  </BrowserRouter>
 }
 
 export default App;

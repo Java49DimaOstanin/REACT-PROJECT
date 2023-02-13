@@ -1,0 +1,16 @@
+{
+
+"MinimalValueOfID":1,
+
+"MaximalValueOfID":99999,
+
+"DepartmentNames":["driver","postman","qa","devops","developer"],
+
+"MinimalSalary":100,
+
+"MaximalSalary":50000,
+
+"MinimalBirthYear":1965,
+
+"MaximalBirthYear":2005
+}

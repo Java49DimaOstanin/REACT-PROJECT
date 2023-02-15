@@ -1,9 +1,9 @@
 import { Link, Outlet } from "react-router-dom";
 import { NavigatorProps } from "../../model/NavigatorProps"
 import '../navigators/navigators.css'
-// import { Box ,AppBar} from '@mui/system';
 import { Box ,AppBar,Tabs,Tab} from '@mui/material';
 import React from "react";
+import { layoutConfig } from "../../config/layout-config";
 
 export const Navigator: React.FC<NavigatorProps> = ({ className, routes }) => {
     const [tabNumber,setTabNumber] = React.useState(0);
@@ -20,22 +20,13 @@ export const Navigator: React.FC<NavigatorProps> = ({ className, routes }) => {
 </AppBar>
 <Outlet></Outlet>
     </Box> 
-    // <div>
-    //     <nav>
-    //         <ul className={className}>
-    //             {getNavItems(routes)}l,.
-    //         </ul>
-    //     </nav>
-    //     <Outlet></Outlet>
-    // </div>
+   
 }
 function getNavItems(routes: { path: string; label: string }[]): React.ReactNode {
     return routes.map((r,index) => <Tab component={Link} to={r.path} label={r.label} key={index}/>)
     
     
-    // return routes.map((r, index) => <li className="navigator-item" key={index}>
-    //     <NavLink to={r.path} style={({isActive}) => getActiveProps(isActive)}>{r.label}</NavLink>
-    // </li>)
+   
 }
 function getActiveProps(isActive: boolean) : React.CSSProperties {
     let res: React.CSSProperties = {};

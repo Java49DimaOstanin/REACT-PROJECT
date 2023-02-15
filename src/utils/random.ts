@@ -1,6 +1,6 @@
 
  export function getRandomNumber(min:number ,max:number,isMinInclusive:boolean=true,isMaxInclusive:boolean=false):number{
-    if((min == max)&& (!isMinInclusive || !isMaxInclusive)){
+    if((min === max)&& (!isMinInclusive || !isMaxInclusive)){
         throw new Error('min may not be equaled to max');
     }
     if(max < min){
@@ -32,4 +32,7 @@ export function getRandomDate(minYear:number,maxYear:number):Date{
     const minDate:Date = new Date(minYear,0),maxDate:Date = new Date(maxYear,0);
     const min:number = minDate.getTime(),max:number = maxDate.getTime();
     return new Date(getRandomNumber(min,max));
+}
+export function getRandomColor(){
+    return getRandomNumber(0,16777215).toString(16);
 }

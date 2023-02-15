@@ -1,7 +1,7 @@
 export type Employee = {
     id:number;
     name:string;
-    birtDate:Date;
+    birtDate:string;
     department:string;
     salary :number;
 }

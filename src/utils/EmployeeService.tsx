@@ -1,50 +1,50 @@
-import { Employee } from "../model/Employee";
-import  emplConfig  from '../config/employee-config.json';
-import { getRandomNumber,getRandomDate } from "./random";
-import { Statistics } from "../model/statisticsType";
-// import { useSelector } from "react-redux";
-
-export function statAge(employee:Employee[]):Statistics{
-    let statistics:Statistics = employee.reduce((result, employee) =>{
-        result.min = result.min< Date.parse(employee.birtDate)? result.min : Date.parse(employee.birtDate);
-        result.max = result.max> Date.parse(employee.birtDate) ? result.max : Date.parse(employee.birtDate);
-        result.avg += Date.parse(employee.birtDate);
-        return statistics;
-      },{min:emplConfig.MaximalBirthYear,max:emplConfig.MinimalBirthYear,avg:0})
-      statistics.avg =  Math.trunc(statistics.avg/employee.length);
-
-      return statistics;
+import { Employee } from "../model/Employee"
+import { getElement, getRandomDate, getRandomNumber } from "../utils/random";
+import employeeConfig from "../config/employee-config.json";
+export function createRandomEmployee(): Employee {
+    const {minId, maxId, departments,
+         minBirthYear, maxBirthYear, minSalary, maxSalary} = employeeConfig;
+    const id = getRandomNumber(minId, maxId,true, true);
+    const name = "name" + id;
+    const department = getElement(departments);
+    const birthDate = getRandomDate(minBirthYear, maxBirthYear).toISOString()
+    .slice(0, 10);
+    const salary = getRandomNumber(minSalary, maxSalary);
+    const employee: Employee = {id, name, department,
+         birthDate, salary}
+    return employee;
 }
+export function statAge(employees: Employee[]):
+ {minAge:number, maxAge:number, avgAge: number} {
+    const currentYear = new Date().getFullYear();
+    const result = employees.reduce((res, empl) => {
+        const age = currentYear - new Date(empl.birthDate).getFullYear();
+        if (res.minAge > age) {
+            res.minAge = age;
+        } else if(res.maxAge < age) {
+            res.maxAge = age
+        }
+        res.avgAge += age;
+        return res;
 
-export function statSalary(employee:Employee[]):Statistics {
-    let statistics:Statistics = employee.reduce((result, employee) =>{
-      result.min = result.min<employee.salary ? result.min : employee.salary;
-      result.max = result.max>employee.salary ? result.max : employee.salary;
-      result.avg += employee.salary;
-      return statistics;
-    },{min:emplConfig.MaximalSalary,max:emplConfig.MinimalSalary,avg:0})
-    statistics.avg = Math.trunc(statistics.avg/employee.length);
-    return statistics;
+    }, {minAge: 1000, maxAge: 0, avgAge:0});
+    result.avgAge = Math.trunc(result.avgAge / employees.length) ;
+    return result;
 }
+export function statSalary(employees: Employee[]):
+ {minSalary:number, maxSalary:number, avgSalary: number} {
+   
+    const result = employees.reduce((res, empl) => {
+        const {salary} = empl;
+        if (res.minSalary > salary) {
+            res.minSalary = salary;
+        } else if(res.maxSalary < salary) {
+            res.maxSalary = salary;
+        }
+        res.avgSalary += salary;
+        return res;
 
-export function creatRandomEmployee():Employee{
-  const names:string[] = ["Petya","Vasya","Timon","Pumba","Kuzia","Vinni","Cheburashka",
-"Gena","Alona","Jasmin","Katia"];
-//    const emplSelect:Employee[] = useSelector<any,Employee[]>(state => state.employeesName.addEmployee) ;
-   const newEmployee :Employee = {
-    id: getRandomNumber(emplConfig.MinimalValueOfID,emplConfig.MaximalValueOfID),
-    // id: getUniqueId(emplSelect),
-    name: names[getRandomNumber(0, names.length)],
-    birtDate: getRandomDate(emplConfig.MinimalBirthYear,emplConfig.MaximalBirthYear).toISOString().slice(0,10),
-    department: emplConfig.DepartmentNames[getRandomNumber(0,emplConfig.DepartmentNames.length)],
-    salary: getRandomNumber(emplConfig.MinimalSalary,emplConfig.MaximalSalary)
-   }
-   return newEmployee;
+    }, {minSalary: Number.MAX_VALUE, maxSalary: 0, avgSalary:0});
+    result.avgSalary = Math.trunc(result.avgSalary / employees.length) ;
+    return result;
 }
-// function getUniqueId(employee:Employee[]):number{
-//     let randomID:number = getRandomNumber(emplConfig.MinimalValueOfID,emplConfig.MaximalValueOfID)
-//      if(employee.filter())
-
-
-//     return randomID;
-// }

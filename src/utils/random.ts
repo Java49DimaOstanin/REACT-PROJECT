@@ -25,7 +25,7 @@ export function getRandomMatrix(rows:number,colums:number,min:number,max:number)
 
     return resMatrix;
 }
-export function getRandomArrayElement<T>(array:T[]):T{
+export function getElement<T>(array:T[]):T{
     return array[getRandomNumber(0,array.length)];
 }
 export function getRandomDate(minYear:number,maxYear:number):Date{

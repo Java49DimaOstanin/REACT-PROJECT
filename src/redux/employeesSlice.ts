@@ -1,19 +1,17 @@
-import { createSlice } from "@reduxjs/toolkit"
-import { Employee } from "../model/Employee";
-
-const emps: Employee[] = [];
-const initialState = {
-    employeesList: emps
+import {createSlice} from '@reduxjs/toolkit';
+import { Employee } from '../model/Employee';
+const initialState: {employees: Employee[]} = {
+    employees: []
 }
-const employeeSlice = createSlice({
+const employeesSlice = createSlice({
     initialState,
-    name : "employeesName",
-    reducers:{
-        addEmployee:(state,data) =>{
-            state.employeesList = state.employeesList.slice();
-            state.employeesList.push(data.payload);
+    name: "company",
+    reducers: {
+        addEmployee: (state, data) =>
+        {
+            state.employees.push(data.payload);
         }
     }
 })
-export const employeeActions = employeeSlice.actions;
-export const employeeReducer = employeeSlice.reducer;
+export const employeesReducer = employeesSlice.reducer;
+export const employeesActions = employeesSlice.actions;

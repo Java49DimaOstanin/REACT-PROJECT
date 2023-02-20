@@ -1,30 +1,52 @@
-import React from 'react';
-import {Box, List, ListItem, Typography} from '@mui/material';
-import { useSelector } from 'react-redux';
-import { Employee } from '../model/Employee';
-import { DataGrid, GridColumns } from '@mui/x-data-grid';
-import { type } from '@testing-library/user-event/dist/type';
-import { statAge,statSalary } from '../utils/EmployeeService';
-
-type InputProps = {
-  statisticsName: string;
-  statisticsType: "Age" | "Salary"
-  
-  
+import { Box, Typography } from "@mui/material";
+import { DataGrid, GridColumns } from "@mui/x-data-grid";
+import React from "react";
+import './pages/table.css'
+type Props = {
+    title: string;
+    field: string;
+    objects: any[];
 }
+const columns: GridColumns = [
+    {
+        field: "minValue", headerName: "Minimal Value", headerAlign: "center",
+        align: "center", headerClassName: "header", flex: 1
+    },
+    {
+        field: "maxValue", headerName: "Maximal Value", headerAlign: "center",
+        align: "center", headerClassName: "header", flex: 1
+    },
+    {
+        field: "avgValue", headerName: "Average Value", headerAlign: "center",
+        align: "center", headerClassName: "header", flex: 1
+    }
+]
+export const Statistics: React.FC<Props> = ({ title, field, objects }) => {
+    let statistics: any = {id: 1};
+    if (objects.length > 0) {
+        const initialObject: { minValue: number, maxValue: number, avgValue: number } =
+        {
+            minValue: objects[0][field],
+            maxValue: objects[0][field],
+            avgValue: 0
+        };
+        statistics = objects.reduce((res, cur) => {
+            if (res.minValue > cur[field]) {
+                res.minValue = cur[field];
+            } else if(res.maxValue < cur[field]) {
+                res.maxValue = cur[field];
+            }
+            res.avgValue += cur[field]
+             return res;  
+        }, initialObject)
+        statistics.id = 1;
+        statistics.avgValue = Math.round(statistics.avgValue / objects.length);
+    }
 
-export const Statistics: React.FC<InputProps> = (props) => {
-const employees = useSelector<any, Employee[]>(state => state.company.employees)
-const columns = React.useRef<GridColumns>([
-    {field: "min"+ props.statisticsType, headerName: "Minimal Value ",flex:1,headerAlign:"center",align:"center" ,type:"number"},
-    {field: "max"+ props.statisticsType, headerName: "Maximal Value", flex:1,headerAlign:"center",align:"center" ,type:"number"},
-    {field: "avg"+ props.statisticsType, headerName: "Average Value", flex:1,headerAlign:"center",align:"center" ,type:"number"},
-])
-const emplStat = props.statisticsType == 'Age'? (statAge(employees)):(statSalary(employees));
 
-
-return <Box sx={{height: "80vh",width:"80vw"}}>
-       <Typography sx={{textAlign: "center",fontSize:"1.5em"}}>{props.statisticsName}</Typography>
-       <DataGrid columns={columns.current} rows={[{id:0,...emplStat}]}/>
+    return <Box sx={{ width: "50vw", height: "30Vh" }}>
+        <Typography sx={{fontSize: "1.8em",
+         fontWeight: "bold", textAlign: "center"}}>{title}</Typography>
+        <DataGrid columns={columns} rows={[statistics]} />
     </Box>
-} 
+}

@@ -1,10 +1,13 @@
 import React, { useEffect } from "react"
 import { Alert } from "./Alert";
+import { Input,Button } from "@mui/material";
+import { Box } from "@mui/system";
+
 type InputProps = {
     placeHolder: string;
     inputProcess: (value: string)=>string
 }
-export const Input: React.FC<InputProps> = ({placeHolder, inputProcess}) => {
+export const IInput: React.FC<InputProps> = ({placeHolder, inputProcess}) => {
     let inputElement: HTMLInputElement | null
    const inputId =
     React.useRef(Math.round(Math.random() * 100000000) + '');
@@ -25,9 +28,10 @@ export const Input: React.FC<InputProps> = ({placeHolder, inputProcess}) => {
     useEffect(() => {
        inputElement = document.getElementById(inputId.current) as HTMLInputElement;
     })
-    return <div>
-        <input id={inputId.current} placeholder={placeHolder}/>
-        <button onClick={processGo}>GO</button>
+    return <Box>
+        <Input color="primary" size="medium" id={inputId.current} placeholder={placeHolder}/>
+        {/* <input id={inputId.current} placeholder={placeHolder}/> */}
+        <Button onClick={processGo}>GO</Button>
         {message && <Alert type={"error"} message={message}/>}
-    </div>
+    </Box>
 }

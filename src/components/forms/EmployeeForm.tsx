@@ -65,9 +65,11 @@ export const EmployeeForm :React.FC<Props> = ({submitFn, employeeUpdate}) =>{
                 readOnly: !!employeeUpdate,
                 min:`${minBirthYear}-01-01`,
                 max: `${maxBirthYear}-12-31`
-            }} InputLabelProps = {{
+            }}
+             InputLabelProps = {{
                 shrink: true
-            }} onChange={handlerBirthDate}/>
+            }} 
+            onChange={handlerBirthDate}/>
             <TextField label='salary' fullWidth required type='number' onChange={handlerSalary} helperText={`enter salary in range [${minSalary}-${maxSalary}]`}
             inputProps = {{
                 min:`${minSalary}`,

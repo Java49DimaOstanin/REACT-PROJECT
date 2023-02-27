@@ -11,13 +11,13 @@ const dispatch = useDispatch();
 const authUser = useSelector<any, string>(state => state.auth.authenticated);
     const columns=React.useRef<GridColumns>([
         {field: 'name', headerClassName:'header', headerName: 'Employee Name',
-         flex: 1, headerAlign: 'center', align: 'center' },
+         flex: 1, headerAlign: 'center', align: 'center' ,editable: true},
         {field: 'birthDate', headerName: 'Date of Birth', flex: 1,headerClassName:'header',
          type:"date",headerAlign: 'center',align: 'center'},
         {field: 'department', headerName: 'Department',headerClassName:'header',
          flex: 1,headerAlign: 'center',align: 'center'},
         {field: 'salary', headerName: "Salary (NIS)", headerClassName:'header',
-        flex: 0.7, type: "number",headerAlign: 'center', align: 'center'},
+        flex: 0.7, type: "number",headerAlign: 'center', align: 'center',editable: true},
         {field: 'actions', type: "actions",getActions: (params) => {
             return authUser.includes('admin') ?[
                 <GridActionsCellItem label="remove" icon={<Delete/>}
@@ -45,7 +45,4 @@ const authUser = useSelector<any, string>(state => state.auth.authenticated);
     return <Box sx={{height: "80vh", width: "80vw"}}>
         <DataGrid columns={columns.current} rows={employees}/>
     </Box>
-}
-function getListItems(employees: Employee[]): React.ReactNode {
-    return employees.map((empl, index) => <ListItem key={index}><Typography>{JSON.stringify(empl)}</Typography></ListItem>)
 }

@@ -1,6 +1,6 @@
 import {createSlice} from '@reduxjs/toolkit';
 import { Employee } from '../model/Employee';
-import { Company } from '../utils/Company';
+import { Company } from '../service/Company';
 const company = new Company();
 const initialState: {employees: Employee[]} = {
     employees: company.getAllEmployees()

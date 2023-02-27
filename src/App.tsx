@@ -13,6 +13,7 @@ import { RouteType } from './model/RouteType';
 import { useSelector } from 'react-redux';
 import { Login } from './components/pages/Login';
 import { Logout } from './components/pages/LogOut';
+import { Generation } from './components/pages/Generation';
 
 
 function App() {
@@ -34,6 +35,7 @@ function App() {
            routes={routes}  />}>
               <Route index element={<Employees/>}/>
               <Route path='add' element={<AddEmployee/>}/>
+              <Route path='generation' element={<Generation/>}/>
               <Route path='statistics/age' element={<AgeStatistics/>}/>
               <Route path='statistics/salary' element={<SalaryStatistics/>}/>
               <Route path='login' element={<Login/>}/>

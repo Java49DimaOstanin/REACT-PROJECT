@@ -12,7 +12,7 @@ export const EmployeeForm :React.FC<Props> = ({submitFn, employeeUpdate}) =>{
 
     const {minBirthYear, minSalary, maxBirthYear,maxSalary,departments} = employeeConfig;
     const [employee, setEmployee] = useState<Employee>(employeeUpdate ? employeeUpdate : initialEmployee);
-
+    const [alertWindow,setAlertWindow] = useState<boolean>(false);
     function handlerName (event:any) {
         const name = event.target.value;
         const emplCopy = {...employee};
@@ -46,8 +46,13 @@ export const EmployeeForm :React.FC<Props> = ({submitFn, employeeUpdate}) =>{
     function onResetFn(event:any){
         setEmployee(employeeUpdate ? employeeUpdate : initialEmployee);
     }
+    function handleDialog(){
+        setAlertWindow(true);
+    }
 
     return <Box>
+        
+
         <form onSubmit={onSumbmitFn} onReset={onResetFn}>
             <FormControl fullWidth required>
               <InputLabel id='select-department-id'> Department</InputLabel>
@@ -75,7 +80,7 @@ export const EmployeeForm :React.FC<Props> = ({submitFn, employeeUpdate}) =>{
                 min:`${minSalary}`,
                 max:`${maxSalary}`
             }}/>
-            <Button type="submit">Submit</Button>
+            <Button onClick={handleDialog}>Submit</Button>
             <Button type="reset">Reset</Button>
         </form>
 

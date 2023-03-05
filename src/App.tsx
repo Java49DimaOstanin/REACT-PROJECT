@@ -1,6 +1,6 @@
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import { Navigator } from './components/navigators/Navigator';
-import './App.css'
+ import './App.css'
 
 import { layoutConfig } from './config/layout-config';
 import { Employees } from './components/pages/Employees';
@@ -14,6 +14,7 @@ import { useSelector } from 'react-redux';
 import { Login } from './components/pages/Login';
 import { Logout } from './components/pages/LogOut';
 import { Generation } from './components/pages/Generation';
+import { NavigatorDispatch } from './components/navigators/NavigatorDispatch';
 
 
 function App() {
@@ -31,8 +32,7 @@ function App() {
     }, [authUser])
   return <BrowserRouter>
       <Routes>
-          <Route path='/' element={<Navigator 
-           routes={routes}  />}>
+          <Route path='/' element={<NavigatorDispatch routes={routes}  />}>
               <Route index element={<Employees/>}/>
               <Route path='add' element={<AddEmployee/>}/>
               <Route path='generation' element={<Generation/>}/>

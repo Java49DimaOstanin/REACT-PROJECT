@@ -1,14 +1,10 @@
-import React, { useState } from 'react';
-import {Alert, Box, Button, Input,TextField} from "@mui/material";
+import React from "react";
+import {Box, TextField, Button, Alert} from '@mui/material';
 import {useDispatch} from 'react-redux';
-import { employeesActions } from '../../redux/employeesSlice';
-import { createRandomEmployee } from '../../service/EmployeeService';
 import generationConfig from '../../config/generation-config.json';
-import { Form } from 'react-router-dom';
-
-
-
-
+import { employeesActions } from "../../redux/employeesSlice";
+import { createRandomEmployee } from "../../service/EmployeeService";
+import { Employee } from "../../model/Employee";
 export const Generation: React.FC = () => {
     const dispatch = useDispatch();
     const {defaultAmount, minAmount, maxAmount, alertTimeout} = generationConfig;
@@ -19,14 +15,17 @@ export const Generation: React.FC = () => {
     }
     function onSubmitFn(event: any) {
         event.preventDefault();
-        for(let i = 0; i < amount; i++) {
-            dispatch(employeesActions.addEmployee(createRandomEmployee()));
+        const employeesAr: Employee[] = [];
+        for (let i = 0; i < amount; i++) {
+            employeesAr.push(createRandomEmployee());
         }
+         
+         dispatch(employeesActions.addBulkEmployees(employeesAr));
         setAlertAccess(true);
         setTimeout(() => setAlertAccess(false),alertTimeout );
-       
     }
     
+
 
     return <Box>
         <form onSubmit={onSubmitFn} >

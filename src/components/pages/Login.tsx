@@ -5,7 +5,7 @@ import React from "react";
 // import {AuthService} from '../../service/AuthService';
 import { LoginForm } from "../forms/LoginForm";
 import { LoginData } from "../../model/LoginData";
-import { Box } from "@mui/material";
+import { Box, Paper } from "@mui/material";
 import { CodeType } from "../../model/CodeType";
 export const Login: React.FC = ()=>{
    
@@ -20,7 +20,11 @@ export const Login: React.FC = ()=>{
         
     }
     return <Box>
-        
+        <Paper>
         <LoginForm submitFn={loginSubmit} code={code}/>
+        
+        </Paper>
+        
+
         </Box>
 }

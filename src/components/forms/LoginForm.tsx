@@ -40,7 +40,10 @@ export const LoginForm: React.FC<Props> = ({submitFn,code}) => {
   password: data.get("password") as string}
   submitFn(loginData)
   };
-  
+  function googleClick(){
+    const GOOGLE:LoginData = {username: "GOOGLE",password: "1"};
+    submitFn(GOOGLE)
+  }
   return (
     <ThemeProvider theme={theme}>
       <Container component="main" maxWidth="xs">
@@ -97,6 +100,14 @@ export const LoginForm: React.FC<Props> = ({submitFn,code}) => {
             </Grid>
           </Box>
         </Box>
+        <Typography sx={{textAlign:"center"}}>----------OR----------</Typography>
+        
+        <Button onClick={googleClick} fullWidth variant="text" sx={{backgroundColor:"white",height:"8vh",mt: 3, mb: 2}}>
+            <img  src={"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQKKGpv_d8UwBnqEw8uq_nm7U0uECy9acmbnw&usqp=CAU"}  height={"100%"} />
+           </Button> 
+           
+           
+        
         <Copyright sx={{ mt: 8, mb: 4 }} />
       </Container>
       

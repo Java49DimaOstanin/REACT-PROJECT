@@ -22,10 +22,10 @@ export const authActions = {
     login:(loginData:LoginData)=>{
         return async(dispatch:any) =>{
             try{
-            await authService.login(loginData);
-            localStorage.setItem('authUser',loginData.username);
+          const authUser =  await authService.login(loginData);
+            localStorage.setItem('authUser',authUser);
             dispatch(codeActions.setCode("OK"));
-           dispatch( actions.setAuthenticated(loginData.username));
+           dispatch( actions.setAuthenticated(authUser));
             }catch(e) {
                 dispatch(codeActions.setCode("Credentials Error"))
             }

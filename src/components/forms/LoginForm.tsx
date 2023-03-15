@@ -11,7 +11,7 @@ import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import { LoginData } from '../../model/LoginData';
-import { Alert } from '@mui/material';
+import { Alert, Divider } from '@mui/material';
 import { CodeType } from '../../model/CodeType';
 
 function Copyright(props: any) {
@@ -28,22 +28,19 @@ function Copyright(props: any) {
 }
 type Props = {
   submitFn: (loginData: LoginData)=>void;
-  code:CodeType;
+  code: CodeType;
 };
 const theme = createTheme();
 
-export const LoginForm: React.FC<Props> = ({submitFn,code}) => {
+export const LoginForm: React.FC<Props> = ({submitFn, code}) => {
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
     const loginData: LoginData = {username: data.get("username") as string,
   password: data.get("password") as string}
-  submitFn(loginData)
+ submitFn(loginData);
   };
-  function googleClick(){
-    const GOOGLE:LoginData = {username: "GOOGLE",password: "1"};
-    submitFn(GOOGLE)
-  }
+  
   return (
     <ThemeProvider theme={theme}>
       <Container component="main" maxWidth="xs">
@@ -95,18 +92,20 @@ export const LoginForm: React.FC<Props> = ({submitFn,code}) => {
             <Grid container>
              
               <Grid item>
-              {code === 'Credentials Error' && <Alert severity='error' >{code}</Alert>}
+              {code == 'Credentials Error' && <Alert severity='error' >{code}, enter another credentials</Alert>}
               </Grid>
             </Grid>
           </Box>
-        </Box>
-        <Typography sx={{textAlign:"center"}}>----------OR----------</Typography>
-        
-        <Button onClick={googleClick} fullWidth variant="text" sx={{backgroundColor:"white",height:"8vh",mt: 3, mb: 2}}>
-            <img  src={"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQKKGpv_d8UwBnqEw8uq_nm7U0uECy9acmbnw&usqp=CAU"}  height={"100%"} />
-           </Button> 
-           
-           
+          <Divider sx={{ width: "100%", fontWeight: "bold"}}>or</Divider>
+          <Button 
+           onClick={() =>
+            submitFn({ username: 'GOOGLE', password: '' })} fullWidth variant="outlined" 
+            sx={{mt: 2}}
+             >
+
+            <Avatar src="https://img.icons8.com/color/2x/google-logo.png" sx={{width:{xs: '6vh', sm: '6vw', lg: '3vw'}}}  />
+        </Button>
+          </Box>
         
         <Copyright sx={{ mt: 8, mb: 4 }} />
       </Container>

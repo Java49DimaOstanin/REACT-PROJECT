@@ -10,12 +10,15 @@ import { SalaryStatistics } from './components/pages/SalaryStatistics';
 import { useEffect, useState } from 'react';
 import { RouteType } from './model/RouteType';
 import { useSelector, useDispatch } from 'react-redux';
-import { employeesActions } from './redux/employeesSlice';
+import { employeesActions ,setEmployees} from './redux/employeesSlice';
 import { Login } from './components/pages/Login';
 import { Logout } from './components/pages/LogOut';
 import { Generation } from './components/pages/Generation';
 import { NavigatorDispatch } from './components/navigators/NavigatorDispatch';
-
+import { company } from './redux/employeesSlice';
+import { codeActions } from './redux/codeSlice';
+import { Employee } from './model/Employee';
+import { Subscription } from 'rxjs';
 
 function App() {
     const dispatch = useDispatch<any>();
@@ -33,10 +36,22 @@ function App() {
         setRoutes(getRoutes());
     }, [authUser]);
     useEffect(() => {
+        let subscribtion :Subscription;
         if(authUser){
-            dispatch(employeesActions.getEmployees()); 
+          subscribtion =  company.getAllEmployees().subscribe({
+            next:(employees:Employee[]) => {
+                dispatch(setEmployees(employees));
+                dispatch(codeActions.setCode("OK"));
+            },
+            error:(err:any)=>{
+                dispatch(codeActions.setCode("Unknown Error"));
+            }
+           })
         }
-        dispatch(employeesActions.getEmployees());
+        return () => {
+          subscribtion && subscribtion.unsubscribe();
+            console.log("unsubscribing")
+        };
     },[authUser])
   return <BrowserRouter>
       <Routes>
